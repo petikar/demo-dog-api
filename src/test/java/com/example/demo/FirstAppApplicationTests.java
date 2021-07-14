@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class FirstAppApplicationTests {
 
+	//TODO Тут бы какой-нибудь тестик
 	@Test
 	void contextLoads() {
 	}

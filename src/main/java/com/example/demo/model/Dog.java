@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Objects;
 
+//TODO Должен имплементировать Serializable
 @Entity
 public class Dog {
 

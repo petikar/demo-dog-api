@@ -13,6 +13,10 @@ import java.util.List;
 @RequestMapping("/dogs")
 public class DogController {
 
+    //TODO Сделать DTO, и маппер/коневертер
+    // Обработка ошибок через ExceptionHandler
+
+    //TODO Через конструктор
     @Autowired
     private DogService service;
 
@@ -20,6 +24,7 @@ public class DogController {
     public ResponseEntity<List<Dog>> getAll() {
 
         List<Dog> dogs = service.findAll();
+        //TODO NOT_FOUND обычно относится к конкретной записи, для списков лучше возвращать пустой список
         if (dogs.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -29,6 +34,18 @@ public class DogController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Dog> getDog(@PathVariable int id) {
+
+        //TODO 1. Параметры приложения перенести в yaml
+        // 2. Сделать класс для хранения каких-то параметров приложения
+        // 3. Один параметр comment
+        // 4. Значение параметра должно браться из конфигурационного файла
+        // 5. И выдаваться в ответе только этого интерфейса вместе с сущностью dog
+//        {
+//            "id": 0,
+//            "name": "",
+//            "age": 0.00,
+//            "comment": "значение из конфига"
+//        }
 
         Dog dog = service.findById(id);
 

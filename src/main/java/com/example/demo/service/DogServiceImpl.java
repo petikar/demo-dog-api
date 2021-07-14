@@ -23,6 +23,7 @@ public class DogServiceImpl implements DogService {
         return repository.findAll();
     }
 
+    //TODO Здесь не исключен NoSuchElementException. Нужно доработать код, чтобы его не было
     @Override
     public Dog findById(int id) {
         return repository.findById(id).get();
