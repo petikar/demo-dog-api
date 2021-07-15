@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Dog;
+import com.example.demo.dto.DogDto;
+import com.example.demo.dto.DogDtoWithComment;
 import com.example.demo.service.DogService;
+import com.example.demo.utils.ApplicationParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,33 +15,40 @@ import java.util.List;
 @RequestMapping("/dogs")
 public class DogController {
 
-    //TODO Сделать DTO, и маппер/коневертер
-    // Обработка ошибок через ExceptionHandler
+    // + TODO Сделать DTO, и маппер/коневертер
+    // + Обработка ошибок через ExceptionHandler
 
-    //TODO Через конструктор
+    //get может быть не реальный id, пока вручную его проверяю
+
+    //+TODO Через конструктор
+
+    private final DogService service;
+    private final ApplicationParameters applicationParameters;
+
     @Autowired
-    private DogService service;
+    public DogController(DogService service, ApplicationParameters applicationParameters) {
+        this.service = service;
+        this.applicationParameters = applicationParameters;
+    }
 
     @GetMapping
-    public ResponseEntity<List<Dog>> getAll() {
+    public ResponseEntity<List<DogDto>> getAll() {
 
-        List<Dog> dogs = service.findAll();
-        //TODO NOT_FOUND обычно относится к конкретной записи, для списков лучше возвращать пустой список
-        if (dogs.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(dogs, HttpStatus.OK);
-        }
+        List<DogDto> dogs = service.findAll();
+        // + TODO NOT_FOUND обычно относится к конкретной записи, для списков лучше возвращать пустой список
+
+        return new ResponseEntity<>(dogs, HttpStatus.OK);
+
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Dog> getDog(@PathVariable int id) {
+    public ResponseEntity<DogDtoWithComment> getDog(@PathVariable("id") int id) {
 
-        //TODO 1. Параметры приложения перенести в yaml
-        // 2. Сделать класс для хранения каких-то параметров приложения
-        // 3. Один параметр comment
-        // 4. Значение параметра должно браться из конфигурационного файла
-        // 5. И выдаваться в ответе только этого интерфейса вместе с сущностью dog
+        //TODO 1. + Параметры приложения перенести в yaml
+        // 2. + Сделать класс для хранения каких-то параметров приложения
+        // 3. + Один параметр comment
+        // 4. + Значение параметра должно браться из конфигурационного файла
+        // 5. + И выдаваться в ответе только этого интерфейса вместе с сущностью dog
 //        {
 //            "id": 0,
 //            "name": "",
@@ -47,19 +56,22 @@ public class DogController {
 //            "comment": "значение из конфига"
 //        }
 
-        Dog dog = service.findById(id);
+        DogDto dog = service.findById(id);
+        DogDtoWithComment dogWithComment = new DogDtoWithComment(dog, applicationParameters.getComment());
 
-        if (dog == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+/*        if (dog == null) {
+            throw new ApiRequestException("Custom ApiRequestException: Dog doesn't found by id=" + id);
         } else {
             return new ResponseEntity<>(dog, HttpStatus.OK);
-        }
+        }*/
+        return new ResponseEntity<>(dogWithComment, HttpStatus.OK); //если собака не найдена, то ошибку возвращает сервис. Так можно?
     }
 
+    //проверить что передан валидный пёс
     @PostMapping
-    public ResponseEntity<Dog> createDog(@RequestBody Dog newDog) {
+    public ResponseEntity<DogDto> createDog(@RequestBody DogDto newDog) {
         service.save(newDog);
         return new ResponseEntity<>(newDog, HttpStatus.CREATED);
     }
-
 }

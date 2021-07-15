@@ -5,21 +5,20 @@ import com.sun.istack.NotNull;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class Person {
+public class Person implements Serializable {
 
     @Id
     @GeneratedValue
     private int id;
 
-    @NotNull
     private String name;
 
-    @NotNull
-    //"yyyy-MM-dd"
+     //"yyyy-MM-dd"
     private Date birthday;
 
 /*    @OneToMany

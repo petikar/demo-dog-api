@@ -13,22 +13,25 @@ import java.util.List;
 @RequestMapping("/people")
 public class PersonController {
 
-    @Autowired
+
     private PersonService service;
+
+    @Autowired
+    public PersonController(PersonService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public ResponseEntity<List<Person>> getAll() {
 
         List<Person> people = service.findAll();
-        if (people.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(people, HttpStatus.OK);
-        }
+
+        return new ResponseEntity<>(people, HttpStatus.OK);
+
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Person> getDog(@PathVariable int id) {
+    public ResponseEntity<Person> getPerson(@PathVariable int id) {
 
         Person person = service.findById(id);
 
@@ -40,7 +43,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<Person> createDog(@RequestBody Person person) {
+    public ResponseEntity<Person> createPerson(@RequestBody Person person) {
         service.save(person);
         return new ResponseEntity<>(person, HttpStatus.CREATED);
     }

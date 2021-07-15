@@ -1,24 +1,24 @@
 package com.example.demo.model;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Objects;
 
-//TODO Должен имплементировать Serializable
+//+TODO Должен имплементировать Serializable
 @Entity
-public class Dog {
+public class Dog implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue()
     private int id;
 
-    @NotNull
     private String name;
 
-    @NotNull
     private double age;
 
 //    @ManyToOne
@@ -30,7 +30,7 @@ public class Dog {
     public Dog(String name, double age) {
         this.name = name;
         this.age = age;
-     //   this.owner = owner;
+        //   this.owner = owner;
     }
 
     public int getId() {
