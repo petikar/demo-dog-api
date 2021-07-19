@@ -10,9 +10,11 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+//TODO А этот Handler будет использоваться всеми контроллерами? Если да, то нам так не нужно. Нужно только для Dog
 @ControllerAdvice
 public class ApiExceptionHandler {
 
+    //TODO Это что?
     HttpStatus badRequest = HttpStatus.BAD_REQUEST;
 
     @ExceptionHandler(value = {ApiRequestException.class})
@@ -21,15 +23,19 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(apiException, badRequest);
     }
 
+    //TODO В каком случае бросается это исключение?
     @ExceptionHandler(value = {MethodArgumentTypeMismatchException.class})
     public ResponseEntity<Object> handleMethodArgumentTypeMismatchException(){
         ApiException apiException = new ApiException("handleMethodArgumentTypeMismatchException: Failed to convert value to required type.", badRequest, ZonedDateTime.now(ZoneId.of("UTC+7")));
         return new ResponseEntity<>(apiException, badRequest);
     }
 
+    //TODO В каком случае бросается это исключение?
     @ExceptionHandler(value = {ConstraintViolationException.class})
     public ResponseEntity<Object> handleConstraintViolationException(){
         ApiException apiException = new ApiException("handleConstraintViolationException: not valid arguments.", badRequest, ZonedDateTime.now(ZoneId.of("UTC+7")));
         return new ResponseEntity<>(apiException, badRequest);
     }
+
+    //TODO А что, если будет исключение, какого-то другого типа?
 }

@@ -9,7 +9,6 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
 
-//+TODO Должен имплементировать Serializable
 @Entity
 public class Dog implements Serializable {
 
@@ -19,7 +18,10 @@ public class Dog implements Serializable {
 
     private String name;
 
+    //TODO Сделать тип целочисленным и не примитивным
     private double age;
+
+    //TODO Добавить дату рождения с типом DateTime
 
 //    @ManyToOne
 //    private Person owner;

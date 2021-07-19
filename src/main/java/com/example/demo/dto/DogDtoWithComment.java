@@ -2,6 +2,7 @@ package com.example.demo.dto;
 
 import com.example.demo.utils.ApplicationParameters;
 
+//TODO Отнаследовать этот класс от Dog
 public class DogDtoWithComment {
 
     private int id;

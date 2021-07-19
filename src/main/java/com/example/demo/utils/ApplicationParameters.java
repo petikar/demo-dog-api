@@ -8,6 +8,7 @@ public class ApplicationParameters {
 
     private final String comment;
 
+    //TODO А что, если параметров будет 100?
     public ApplicationParameters(@Value("${parameters.dog.comment}") String comment) {
         this.comment = comment;
     }

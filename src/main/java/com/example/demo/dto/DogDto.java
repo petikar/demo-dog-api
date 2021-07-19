@@ -6,7 +6,10 @@ public class DogDto {
 
     private String name;
 
+    //TODO Сделать тип целочисленным и не примитивным
     private double age;
+
+    //TODO Добавить дату рождения с типом LocalDateTime
 
     public DogDto(int id, String name, double age) {
         this.id = id;

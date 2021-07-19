@@ -15,16 +15,10 @@ import java.util.List;
 @RequestMapping("/dogs")
 public class DogController {
 
-    // + TODO Сделать DTO, и маппер/коневертер
-    // + Обработка ошибок через ExceptionHandler
-
-    //get может быть не реальный id, пока вручную его проверяю
-
-    //+TODO Через конструктор
-
     private final DogService service;
     private final ApplicationParameters applicationParameters;
 
+    //TODO Эта аннотация на конструкторе не нужна
     @Autowired
     public DogController(DogService service, ApplicationParameters applicationParameters) {
         this.service = service;
@@ -35,28 +29,14 @@ public class DogController {
     public ResponseEntity<List<DogDto>> getAll() {
 
         List<DogDto> dogs = service.findAll();
-        // + TODO NOT_FOUND обычно относится к конкретной записи, для списков лучше возвращать пустой список
 
         return new ResponseEntity<>(dogs, HttpStatus.OK);
-
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<DogDtoWithComment> getDog(@PathVariable("id") int id) {
-
-        //TODO 1. + Параметры приложения перенести в yaml
-        // 2. + Сделать класс для хранения каких-то параметров приложения
-        // 3. + Один параметр comment
-        // 4. + Значение параметра должно браться из конфигурационного файла
-        // 5. + И выдаваться в ответе только этого интерфейса вместе с сущностью dog
-//        {
-//            "id": 0,
-//            "name": "",
-//            "age": 0.00,
-//            "comment": "значение из конфига"
-//        }
-
         DogDto dog = service.findById(id);
+        //TODO Это не ответственность контроллера делать эту конвертацию
         DogDtoWithComment dogWithComment = new DogDtoWithComment(dog, applicationParameters.getComment());
 
 
@@ -66,12 +46,18 @@ public class DogController {
             return new ResponseEntity<>(dog, HttpStatus.OK);
         }*/
         return new ResponseEntity<>(dogWithComment, HttpStatus.OK); //если собака не найдена, то ошибку возвращает сервис. Так можно?
+        //TODO Это вопрос того используется ли сервис еще где-то, может ли вернуть null. Если в других частях программы Exception обрабатывается, то можно
     }
 
     //проверить что передан валидный пёс
     @PostMapping
     public ResponseEntity<DogDto> createDog(@RequestBody DogDto newDog) {
+        //TODO В Dog id - GeneratedValue. А что будет, если он будет передан в DogDto?
         service.save(newDog);
         return new ResponseEntity<>(newDog, HttpStatus.CREATED);
     }
+
+    //TODO findByName, тип POST.
+    // На входе body: {"name": "some name"}
+    // На выходе: DogInfoDto
 }
