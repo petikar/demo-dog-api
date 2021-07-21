@@ -5,7 +5,9 @@ import com.example.demo.dto.DogDtoWithComment;
 import com.example.demo.dto.DogInfoDto;
 import com.example.demo.dto.mapper.DogInfoDtoMapper;
 import com.example.demo.dto.mapper.DogMapperImpl;
-import com.example.demo.exception.ApiRequestException;
+import com.example.demo.exception.CustomException;
+import com.example.demo.exception.NotFoundException;
+import com.example.demo.exception.NotValidException;
 import com.example.demo.model.Dog;
 import com.example.demo.repository.DogRepository;
 import com.example.demo.utils.ConfigProperties;
@@ -45,21 +47,20 @@ public class DogServiceImpl implements DogService {
     @Override
     public List<DogDto> findAll() {
         List<Dog> dogs = repository.findAll();
-        //TODO А если, вдруг, классы будут не полностью совместимы, см. findByName?
+        //+ TODO А если, вдруг, классы будут не полностью совместимы, см. findByName?
         //List<DogDto> dogsDto = dogs.stream().map(dog -> modelMapper.map(dog, DogDto.class)).collect(Collectors.toList());
         List<DogDto> dogsDto = dogs.stream().map(dogMapper::toDto).collect(Collectors.toList());
         return dogsDto;
     }
 
     @Override
-    public DogDtoWithComment findById(int id) {
+    public DogDtoWithComment findById(int id) throws CustomException {
         if (id < 1) {
-            //TODO Это абсолютно разные типы ошибок
-            throw new ApiRequestException("id must be an integer greater than 1, id = " + id + " doesn't exist");
+            //+TODO Это абсолютно разные типы ошибок
+            throw new NotValidException("id must be an integer greater than 1, id = " + id + " doesn't exist");
         }
-        //TODO Это абсолютно разные типы ошибок - тут not found 404
-
-        Dog dog = repository.findById(id).orElseThrow(() -> new ApiRequestException("ApiRequestException: Dog doesn't found by id=" + id));
+        //TODO +Это абсолютно разные типы ошибок - тут not found 404
+        Dog dog = repository.findById(id).orElseThrow(() -> new NotFoundException("Not found Dog by id=" + id));
         DogDtoWithComment dogDtoWithComment = new DogDtoWithComment(dog, configProperties.getComment());
         return dogDtoWithComment;
     }
@@ -71,8 +72,8 @@ public class DogServiceImpl implements DogService {
         return dogsInfoDto;
     }
 
-    //TODO findByName
+    //TODO findByName +
     // + Должен возвращать новый DTO DogInfoDto:
     // + вместо age должен быть Enum: Young (age <= 3), Middle-Aged (age <= 10), Older
-    // дата рождения должна быть типа LocalDate, а не LocalDateTime
+    // + дата рождения должна быть типа LocalDate, а не LocalDateTime
 }

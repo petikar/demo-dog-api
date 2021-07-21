@@ -1,3 +1,4 @@
+/*
 package com.example.demo.exception;
 
 import org.hibernate.exception.ConstraintViolationException;
@@ -11,11 +12,12 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 //TODO А этот Handler будет использоваться всеми контроллерами? Если да, то нам так не нужно. Нужно только для Dog
+// ExceptionHandler методы в контроллере
 @ControllerAdvice
 public class ApiExceptionHandler {
 
     //TODO Это что?
-    HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+    private HttpStatus badRequest = HttpStatus.BAD_REQUEST;
 
     @ExceptionHandler(value = {ApiRequestException.class})
     public ResponseEntity<Object> handleApiRequestException(ApiRequestException e){
@@ -39,3 +41,4 @@ public class ApiExceptionHandler {
 
     //TODO А что, если будет исключение, какого-то другого типа?
 }
+*/
