@@ -10,7 +10,8 @@ public class FirstAppApplication {
 
     @Bean
     public ModelMapper modelMapper() {
-        return new ModelMapper();
+        ModelMapper mapper = new ModelMapper();
+        return mapper;
     }
 
     public static void main(String[] args) {

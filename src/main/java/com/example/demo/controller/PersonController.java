@@ -16,7 +16,6 @@ public class PersonController {
 
     private PersonService service;
 
-    @Autowired
     public PersonController(PersonService service) {
         this.service = service;
     }

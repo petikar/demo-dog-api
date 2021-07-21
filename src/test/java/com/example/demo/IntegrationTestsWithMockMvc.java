@@ -47,7 +47,7 @@ class IntegrationTestsWithMockMvc {
         return newDogDto;
     }*/
 
-    private DogDto createDogDto(String name, int age) {
+    /*private DogDto createDogDto(String name, int age) {
         DogDto newDogDto = new DogDto();
         newDogDto.setName(name);
         newDogDto.setAge(age);
@@ -89,5 +89,5 @@ class IntegrationTestsWithMockMvc {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(Arrays.asList(dogDto, dogDto2))));
         ;
-    }
+    }*/
 }

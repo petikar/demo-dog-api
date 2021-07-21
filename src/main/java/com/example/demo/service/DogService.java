@@ -1,15 +1,19 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.DogDto;
-import com.example.demo.model.Dog;
+import com.example.demo.dto.DogDtoWithComment;
+import com.example.demo.dto.DogInfoDto;
 
 import java.util.List;
 
 public interface DogService {
 
-    Dog save(DogDto newObject);
+    DogDto save(DogDto newObject);
 
     List<DogDto> findAll();
 
-    DogDto findById(int id);
+    DogDtoWithComment findById(int id);
+
+    List<DogInfoDto> findByName(String name);
+
 }

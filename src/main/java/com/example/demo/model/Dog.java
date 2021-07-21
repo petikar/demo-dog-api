@@ -1,12 +1,12 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -18,21 +18,21 @@ public class Dog implements Serializable {
 
     private String name;
 
-    //TODO Сделать тип целочисленным и не примитивным
-    private double age;
+    //+TODO Сделать тип целочисленным и не примитивным
+    //высчитывать её?
+    private Integer age;
 
-    //TODO Добавить дату рождения с типом DateTime
-
-//    @ManyToOne
-//    private Person owner;
+    //+TODO Добавить дату рождения с типом DateTime
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime birthday;
 
     public Dog() {
     }
 
-    public Dog(String name, double age) {
+    public Dog(String name, Integer age, LocalDateTime birthday) {
         this.name = name;
         this.age = age;
-        //   this.owner = owner;
+        this.birthday = birthday;
     }
 
     public int getId() {
@@ -51,12 +51,20 @@ public class Dog implements Serializable {
         this.name = name;
     }
 
-    public double getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(double age) {
+    public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public LocalDateTime getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDateTime birthday) {
+        this.birthday = birthday;
     }
 
     @Override
@@ -64,12 +72,24 @@ public class Dog implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dog dog = (Dog) o;
-        return Double.compare(dog.age, age) == 0 &&
-                Objects.equals(name, dog.name);
+        return id == dog.id &&
+                Objects.equals(name, dog.name) &&
+                Objects.equals(age, dog.age) &&
+                Objects.equals(birthday, dog.birthday);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, age);
+        return Objects.hash(id, name, age, birthday);
+    }
+
+    @Override
+    public String toString() {
+        return "Dog{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", birthday=" + birthday +
+                '}';
     }
 }

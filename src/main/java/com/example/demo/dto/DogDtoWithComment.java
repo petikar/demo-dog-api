@@ -1,48 +1,19 @@
 package com.example.demo.dto;
 
-import com.example.demo.utils.ApplicationParameters;
+import com.example.demo.model.Dog;
 
-//TODO Отнаследовать этот класс от Dog
-public class DogDtoWithComment {
-
-    private int id;
-
-    private String name;
-
-    private double age;
+// + TODO Отнаследовать этот класс от Dog
+public class DogDtoWithComment extends DogDto {
 
     private String comment;
 
-    public DogDtoWithComment(DogDto dogDto, String comment) {
-        this.id = dogDto.getId();
-        this.name = dogDto.getName();
-        this.age = dogDto.getAge();
+    public DogDtoWithComment(Dog dog, String comment) {
+        super(dog);
+        setId(dog.getId());
         this.comment = comment;
     }
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getAge() {
-        return age;
-    }
-
-    public void setAge(double age) {
-        this.age = age;
+    public DogDtoWithComment() {
     }
 
     public String getComment() {

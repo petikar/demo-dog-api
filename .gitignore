@@ -74,6 +74,7 @@ Desktop.ini
 *.*~
 *~
 .merge_file*
+src/main/resources/data.sql
 
 ######################
 # Gradle Wrapper
@@ -89,3 +90,5 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+
+
