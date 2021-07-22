@@ -12,9 +12,11 @@ import java.util.Objects;
 @Entity
 public class Dog implements Serializable {
 
+    //Dummy
     @Id
     @GeneratedValue()
     private int id;
+    private int abc;
 
     private String name;
 
