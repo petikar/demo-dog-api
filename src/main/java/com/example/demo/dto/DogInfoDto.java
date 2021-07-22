@@ -1,21 +1,12 @@
 package com.example.demo.dto;
 
-import com.example.demo.dto.transfer.DogInfo;
-import com.example.demo.model.Dog;
-import com.fasterxml.jackson.annotation.JsonView;
+import java.time.LocalDate;
 
 public class DogInfoDto extends DogDto {
 
-    @JsonView({DogInfo.class})
     private Enum<Age> ageEnum;
 
-    public DogInfoDto() {
-    }
-
-    public DogInfoDto(Dog dog) {
-        super(dog);
-        setAgeEnum(dog.getAge());
-    }
+    private LocalDate birthDay;
 
     public Enum<Age> getAgeEnum() {
         return ageEnum;
@@ -29,5 +20,13 @@ public class DogInfoDto extends DogDto {
         } else {
             ageEnum = Age.MIDDLE_AGED;
         }
+    }
+
+    public LocalDate getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(LocalDate birthDay) {
+        this.birthDay = birthDay;
     }
 }
