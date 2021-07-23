@@ -75,6 +75,7 @@ Desktop.ini
 *~
 .merge_file*
 src/main/resources/data.sql
+demo.iml
 
 ######################
 # Gradle Wrapper

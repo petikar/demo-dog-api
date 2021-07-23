@@ -12,7 +12,6 @@ import java.util.Objects;
 @Entity
 public class Dog implements Serializable {
 
-    //Dummy
     @Id
     @GeneratedValue()
     private int id;
