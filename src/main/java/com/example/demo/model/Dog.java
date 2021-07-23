@@ -23,7 +23,6 @@ public class Dog implements Serializable {
     private Integer age;
 
     //+TODO Добавить дату рождения с типом DateTime
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime birthday;
 
     public Dog() {

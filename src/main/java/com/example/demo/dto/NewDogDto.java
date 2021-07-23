@@ -2,6 +2,7 @@ package com.example.demo.dto;
 
 import java.time.LocalDateTime;
 
+//TODO @JsonInclude(JsonInclude.Include.NON_NULL)
 public class NewDogDto {
 
     private String name;
