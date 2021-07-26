@@ -16,15 +16,11 @@ public class Dog implements Serializable {
     @Id
     @GeneratedValue()
     private int id;
-    private int abc;
 
     private String name;
 
-    //+TODO Сделать тип целочисленным и не примитивным
-    //высчитывать её?
     private Integer age;
 
-    //+TODO Добавить дату рождения с типом DateTime
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime birthday;
 
