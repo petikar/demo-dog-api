@@ -1,6 +1,6 @@
 package com.example.demo.dto;
 
-public class NameDto {
+public class DogFindByNameDto {
 
     String name;
 
