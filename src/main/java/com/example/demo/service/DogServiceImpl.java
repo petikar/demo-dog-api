@@ -37,8 +37,8 @@ public class DogServiceImpl implements DogService {
     public List<DogDto> findAll() {
         List<Dog> dogs = repository.findAll();
         //+ TODO А если, вдруг, классы будут не полностью совместимы, см. findByName?
-        List<DogDto> dogsDto = dogs.stream().map(mapper::dogToDogDto).collect(Collectors.toList());
-        return dogsDto;
+        //List<DogDto> dogsDto = dogs.stream().map(dog -> modelMapper.map(dog, DogDto.class)).collect(Collectors.toList());
+        return dogs.stream().map(mapper::dogToDogDto).collect(Collectors.toList());
     }
 
     @Override
@@ -50,15 +50,13 @@ public class DogServiceImpl implements DogService {
         //TODO +Это абсолютно разные типы ошибок - тут not found 404
         Dog dog = repository.findById(id).orElseThrow(() -> new NotFoundException("Not found Dog by id=" + id));
 
-        DogDtoWithComment dogDtoWithComment = mapper.dogToDogDtoWithComment(dog);
-        return dogDtoWithComment;
+        return mapper.dogToDogDtoWithComment(dog);
     }
 
     @Override
     public List<DogInfoDto> findByName(String name) {
         List<Dog> dogs = repository.findByName(name);
-        List<DogInfoDto> dogsInfoDto = dogs.stream().map(mapper::dogToDogInfoDto).collect(Collectors.toList());
-        return dogsInfoDto;
+        return dogs.stream().map(mapper::dogToDogInfoDto).collect(Collectors.toList());
     }
 
     //TODO findByName +

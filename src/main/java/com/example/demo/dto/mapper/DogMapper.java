@@ -1,6 +1,8 @@
 package com.example.demo.dto.mapper;
 
-import com.example.demo.dto.*;
+import com.example.demo.dto.DogDto;
+import com.example.demo.dto.DogDtoWithComment;
+import com.example.demo.dto.DogInfoDto;
 import com.example.demo.model.Dog;
 import com.example.demo.utils.ConfigProperties;
 import org.mapstruct.Mapper;
@@ -26,8 +28,14 @@ public abstract class DogMapper {
     public abstract Dog dogDtoToDog(DogDto dogDto);
     public abstract DogDto dogToDogDto(Dog dog);
 
-    //NewDogDto without id
-    public abstract Dog newDogDtoToDog(NewDogDto newdogDto);
+    //DogDto without id
+    public Dog newDogDtoToDog(DogDto newDogDto) {
+        Dog dog = new Dog();
+        dog.setName(newDogDto.getName());
+        dog.setBirthday(newDogDto.getBirthday());
+        dog.setAge(newDogDto.getAge());
+        return dog;
+    }
 
     //DogInfoDto
     public DogInfoDto dogToDogInfoDto(Dog dog) {
@@ -45,6 +53,5 @@ public abstract class DogMapper {
 
         return dogInfoDto;
     }
-
 }
 
