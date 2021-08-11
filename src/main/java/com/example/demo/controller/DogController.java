@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.DogDto;
 import com.example.demo.dto.DogDtoWithComment;
+import com.example.demo.dto.DogFindByNameDto;
 import com.example.demo.dto.DogInfoDto;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.exception.NotValidException;
@@ -55,7 +56,7 @@ public class DogController {
     // + На выходе: DogInfoDto
 
     @PostMapping("/name")
-    public ResponseEntity<List<DogInfoDto>> findByName(@RequestBody DogDto nameForSearch) {
+    public ResponseEntity<List<DogInfoDto>> findByName(@RequestBody DogFindByNameDto nameForSearch) {
         String name = nameForSearch.getName();
         List<DogInfoDto> dogs = service.findByName(name);
         return new ResponseEntity<>(dogs, HttpStatus.OK);

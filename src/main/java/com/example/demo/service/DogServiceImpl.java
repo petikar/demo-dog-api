@@ -3,10 +3,9 @@ package com.example.demo.service;
 import com.example.demo.dto.DogDto;
 import com.example.demo.dto.DogDtoWithComment;
 import com.example.demo.dto.DogInfoDto;
-import com.example.demo.dto.mapper.DogMapper;
-import com.example.demo.exception.CustomException;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.exception.NotValidException;
+import com.example.demo.mapper.DogMapper;
 import com.example.demo.model.Dog;
 import com.example.demo.repository.DogRepository;
 import org.springframework.stereotype.Service;
@@ -42,7 +41,7 @@ public class DogServiceImpl implements DogService {
     }
 
     @Override
-    public DogDtoWithComment findDogDtoWithCommentById(int id) throws CustomException {
+    public DogDtoWithComment findDogDtoWithCommentById(int id) {
         if (id < 1) {
             //+TODO Это абсолютно разные типы ошибок
             throw new NotValidException("id must be an integer greater than 1, id = " + id + " doesn't exist");

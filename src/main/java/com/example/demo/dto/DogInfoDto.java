@@ -1,35 +1,32 @@
 package com.example.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 
 @JsonInclude(JsonInclude.Include.NON_NULL) //не показывать поля null(Integer age, LocalDateTime birthday)
 public class DogInfoDto extends DogDto {
 
-    private Enum<Age> ageEnum;
+    @JsonProperty("age")
+    private Age ageEnum;
 
-    private LocalDate birthDay;
+    @JsonProperty("birthday")
+    private LocalDate birthdayLocalDate;
 
-    public Enum<Age> getAgeEnum() {
+    public Age getAgeEnum() {
         return ageEnum;
     }
 
-    public void setAgeEnum(Integer ageDog) {
-        if (ageDog <= 3) {
-            ageEnum = Age.YOUNG;
-        } else if (ageDog > 10) {
-            ageEnum = Age.OLDER;
-        } else {
-            ageEnum = Age.MIDDLE_AGED;
-        }
+    public void setAgeEnum(Age ageEnum) {
+        this.ageEnum = ageEnum;
     }
 
-    public LocalDate getBirthDay() {
-        return birthDay;
+    public LocalDate getBirthdayLocalDate() {
+        return birthdayLocalDate;
     }
 
-    public void setBirthDay(LocalDate birthDay) {
-        this.birthDay = birthDay;
+    public void setBirthdayLocalDate(LocalDate birthdayLocalDate) {
+        this.birthdayLocalDate = birthdayLocalDate;
     }
 }
