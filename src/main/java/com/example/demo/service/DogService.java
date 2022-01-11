@@ -12,7 +12,7 @@ public interface DogService {
 
     List<DogDto> findAll();
 
-    DogDtoWithComment findById(int id) throws Exception;
+    DogDtoWithComment findDogDtoWithCommentById(int id) throws Exception;
 
     List<DogInfoDto> findByName(String name);
 

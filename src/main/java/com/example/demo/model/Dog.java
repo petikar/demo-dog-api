@@ -12,16 +12,17 @@ import java.util.Objects;
 @Entity
 public class Dog implements Serializable {
 
-    //Dummy
     @Id
     @GeneratedValue()
     private int id;
 
     private String name;
 
+    //+TODO Сделать тип целочисленным и не примитивным
+    //высчитывать её?
     private Integer age;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    //+TODO Добавить дату рождения с типом DateTime
     private LocalDateTime birthday;
 
     public Dog() {
