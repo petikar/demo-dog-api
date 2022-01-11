@@ -1,6 +1,6 @@
 package com.example.demo.exception;
 
-public class NotFoundException extends CustomException {
+public class NotFoundException extends RuntimeException {
     public NotFoundException(String s) {
         super(s);
     }

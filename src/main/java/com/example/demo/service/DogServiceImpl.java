@@ -3,10 +3,9 @@ package com.example.demo.service;
 import com.example.demo.dto.DogDto;
 import com.example.demo.dto.DogDtoWithComment;
 import com.example.demo.dto.DogInfoDto;
-import com.example.demo.dto.mapper.DogMapper;
-import com.example.demo.exception.CustomException;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.exception.NotValidException;
+import com.example.demo.mapper.DogMapper;
 import com.example.demo.model.Dog;
 import com.example.demo.repository.DogRepository;
 import org.springframework.stereotype.Service;
@@ -37,12 +36,12 @@ public class DogServiceImpl implements DogService {
     public List<DogDto> findAll() {
         List<Dog> dogs = repository.findAll();
         //+ TODO А если, вдруг, классы будут не полностью совместимы, см. findByName?
-        List<DogDto> dogsDto = dogs.stream().map(mapper::dogToDogDto).collect(Collectors.toList());
-        return dogsDto;
+        //List<DogDto> dogsDto = dogs.stream().map(dog -> modelMapper.map(dog, DogDto.class)).collect(Collectors.toList());
+        return dogs.stream().map(mapper::dogToDogDto).collect(Collectors.toList());
     }
 
     @Override
-    public DogDtoWithComment findDogDtoWithCommentById(int id) throws CustomException {
+    public DogDtoWithComment findDogDtoWithCommentById(int id) {
         if (id < 1) {
             //+TODO Это абсолютно разные типы ошибок
             throw new NotValidException("id must be an integer greater than 1, id = " + id + " doesn't exist");
@@ -50,15 +49,13 @@ public class DogServiceImpl implements DogService {
         //TODO +Это абсолютно разные типы ошибок - тут not found 404
         Dog dog = repository.findById(id).orElseThrow(() -> new NotFoundException("Not found Dog by id=" + id));
 
-        DogDtoWithComment dogDtoWithComment = mapper.dogToDogDtoWithComment(dog);
-        return dogDtoWithComment;
+        return mapper.dogToDogDtoWithComment(dog);
     }
 
     @Override
     public List<DogInfoDto> findByName(String name) {
         List<Dog> dogs = repository.findByName(name);
-        List<DogInfoDto> dogsInfoDto = dogs.stream().map(mapper::dogToDogInfoDto).collect(Collectors.toList());
-        return dogsInfoDto;
+        return dogs.stream().map(mapper::dogToDogInfoDto).collect(Collectors.toList());
     }
 
     //TODO findByName +
